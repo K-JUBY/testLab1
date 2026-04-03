@@ -1,6 +1,6 @@
 package lab.tests;
 
-import lab.implementations.gencode3.RomanNumeralConverter;
+import lab.implementations.gencode2.RomanNumeralConverter;
 import lab.interfaces.IRomanNumeralConverter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
