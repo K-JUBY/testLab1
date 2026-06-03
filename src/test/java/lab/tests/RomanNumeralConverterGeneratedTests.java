@@ -60,7 +60,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertThrows(IllegalArgumentException, () -> _sut.toRoman(0));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toRoman(0));
     }
 
 
@@ -76,7 +76,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertThrows(IllegalArgumentException, () -> _sut.toRoman(-5));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toRoman(-5));
     }
 
 
@@ -92,7 +92,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertThrows(IllegalArgumentException, () -> _sut.toRoman(4000));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toRoman(4000));
     }
 
 
@@ -140,7 +140,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertThrows(IllegalArgumentException, () -> _sut.toArabic(""));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toArabic(""));
     }
 
 
@@ -156,7 +156,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertThrows(IllegalArgumentException, () -> _sut.toArabic("ABC"));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toArabic("ABC"));
     }
 
 
@@ -172,7 +172,7 @@ public class RomanNumeralConverterGeneratedTests {
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertThrows(IllegalArgumentException, () -> _sut.toArabic(null));
+        assertThrows(IllegalArgumentException.class, () -> _sut.toArabic(null));
     }
 
 }

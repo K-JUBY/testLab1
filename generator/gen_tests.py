@@ -68,7 +68,7 @@ def generate_method_tests(method_data):
             # Извлекаем имя класса исключения
             exception_class = expected.replace(".class", "").strip()
             act_code = f"// Ожидается исключение: {exception_class}"
-            assert_code = f"assertThrows({exception_class}, () -> _sut.{method_name}({inputs_str}));"
+            assert_code = f"assertThrows({exception_class}.class, () -> _sut.{method_name}({inputs_str}));"
         else:
             # Обычный тест с проверкой результата
             if "void" in method_data["signature"]:
