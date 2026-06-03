@@ -58,15 +58,37 @@ def generate_method_tests(method_data):
     for eq_class in method_data.get("equivalence_classes", []):
         inputs_str = ", ".join(format_java_input(inp) for inp in eq_class["inputs"])
         method_name = method_data["name"]
+        expected = eq_class["expected"]
         
-        # Act code
-        if "void" in method_data["signature"]:
-            act_code = f"_sut.{method_name}({inputs_str});"
+        # Определяем, ожидается ли исключение
+        is_exception = ".class" in expected or "Exception" in expected
+        
+        # Act code и Assert code в зависимости от ожидаемого результата
+        if is_exception:
+            # Извлекаем имя класса исключения
+            exception_class = expected.replace(".class", "").strip()
+            act_code = f"// Ожидается исключение: {exception_class}"
+            assert_code = f"assertThrows({exception_class}, () -> _sut.{method_name}({inputs_str}));"
         else:
-            act_code = f"Object result = _sut.{method_name}({inputs_str});"
-            
-        # Заглушка для ассерта, чтобы тест проходил в пайплайне
-        assert_code = 'assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");'
+            # Обычный тест с проверкой результата
+            if "void" in method_data["signature"]:
+                act_code = f"_sut.{method_name}({inputs_str});"
+                assert_code = 'assertTrue(true, "Метод выполнен успешно без исключений.");'
+            else:
+                # Определяем тип возвращаемого значения из сигнатуры
+                signature = method_data["signature"]
+                # Извлекаем тип возвращаемого значения (первое слово в сигнатуре)
+                result_type = signature.split()[0]
+                
+                act_code = f"{result_type} result = _sut.{method_name}({inputs_str});"
+                
+                # Генерируем правильный assert на основе expected
+                if expected.startswith('"') and expected.endswith('"'):
+                    # Строковое значение
+                    assert_code = f"assertEquals({expected}, result);"
+                else:
+                    # Числовое значение
+                    assert_code = f"assertEquals({expected}, result);"
 
         safe_case_name = eq_class["case"].replace(" ", "_").replace("(", "").replace(")", "").replace("-", "_")
 
@@ -105,7 +127,7 @@ def render_and_save(spec, config):
     output_file = out_dir / f"{module_name}GeneratedTests.java"
     output_file.write_text(file_content, encoding="utf-8")
     
-    print(f"[√] Сгенерирован файл: {output_file}")
+    print(f"[v] Сгенерирован файл: {output_file}")
     print(f"    Методов покрыто: {len(spec['methods'])}")
     total_tests = sum(len(m.get('equivalence_classes', [])) for m in spec['methods'])
     print(f"    Тестов сгенерировано: {total_tests}")
@@ -120,4 +142,4 @@ if __name__ == "__main__":
         
     spec_data = load_spec = yaml.safe_load(open(config["spec_path"], "r", encoding="utf-8"))
     render_and_save(spec_data, config)
-    print("[√] Готово.")
+    print("[v] Готово.")

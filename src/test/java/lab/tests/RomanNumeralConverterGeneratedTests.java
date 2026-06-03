@@ -24,11 +24,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: "I"
         
         // === Act ===
-        Object result = _sut.toRoman(1);
+        String result = _sut.toRoman(1);
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertEquals("I", result);
     }
 
 
@@ -40,11 +40,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: "MMMCMXCIX"
         
         // === Act ===
-        Object result = _sut.toRoman(3999);
+        String result = _sut.toRoman(3999);
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertEquals("MMMCMXCIX", result);
     }
 
 
@@ -56,11 +56,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toRoman(0);
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toRoman(0));
     }
 
 
@@ -72,11 +72,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toRoman(-5);
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toRoman(-5));
     }
 
 
@@ -88,11 +88,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toRoman(4000);
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - валидная римская строка
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toRoman(4000));
     }
 
 
@@ -104,11 +104,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: 1
         
         // === Act ===
-        Object result = _sut.toArabic(""I"");
+        int result = _sut.toArabic("I");
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertEquals(1, result);
     }
 
 
@@ -120,11 +120,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: 3999
         
         // === Act ===
-        Object result = _sut.toArabic(""MMMCMXCIX"");
+        int result = _sut.toArabic("MMMCMXCIX");
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertEquals(3999, result);
     }
 
 
@@ -136,11 +136,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toArabic("""");
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toArabic(""));
     }
 
 
@@ -152,11 +152,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toArabic(""ABC"");
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toArabic("ABC"));
     }
 
 
@@ -168,11 +168,11 @@ public class RomanNumeralConverterGeneratedTests {
         // Ожидаемый результат: IllegalArgumentException.class
         
         // === Act ===
-        Object result = _sut.toArabic("null");
+        // Ожидается исключение: IllegalArgumentException
         
         // === Assert ===
         // Постусловие: Результат - число от 1 до 3999
-        assertTrue(true, "Сгенерированная заглушка Assert. Замените на реальную логику.");
+        assertThrows(IllegalArgumentException, () -> _sut.toArabic(null));
     }
 
 }

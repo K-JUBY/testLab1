@@ -1,38 +1,64 @@
 module: RomanNumeralConverter
-# Трассировка нефункциональных требований
+
+# Функциональные требования модуля
+functional_requirements:
+  - id: FR-1
+    desc: "Преобразование арабского числа (1-3999) в римскую запись"
+  - id: FR-2
+    desc: "Преобразование римской записи в арабское число (1-3999)"
+  - id: FR-3
+    desc: "Валидация входных данных с выбросом IllegalArgumentException при некорректных значениях"
+
+# Нефункциональные требования модуля
 non_functional_requirements:
   - id: NFR-1
-    desc: "Модуль не должен использовать внешние базы данных или API."
+    desc: "Конвертация должна работать только для чисел от 1 до 3999"
   - id: NFR-2
-    desc: "Все методы модуля не имеют состояния (stateless)."
+    desc: "Результат не должен содержать недопустимых символов"
+
 methods:
   - name: toRoman
     req_functional: ["1"]
     req_non_functional: ["NFR-1", "NFR-2"]
     signature: "String toRoman(int number)"
     pre: "number >= 1 && number <= 3999"
-    post: "Возвращает строку с корректным римским числом."
+    post: "Результат - валидная римская строка"
     equivalence_classes:
-      - case: "Минимальное допустимое значение"
+      - case: "Валидное число 1"
         inputs: [1]
-        expected: "I"
-      - case: "Среднее значение"
-        inputs: [58]
-        expected: "LVIII"
-      - case: "Отрицательное число (нарушение pre)"
+        expected: "\"I\""
+      - case: "Валидное число 3999"
+        inputs: [3999]
+        expected: "\"MMMCMXCIX\""
+      - case: "Ноль"
+        inputs: [0]
+        expected: "IllegalArgumentException.class"
+      - case: "Отрицательное число"
         inputs: [-5]
-        expected: "IllegalArgumentException"
+        expected: "IllegalArgumentException.class"
+      - case: "Больше максимума"
+        inputs: [4000]
+        expected: "IllegalArgumentException.class"
 
   - name: toArabic
     req_functional: ["2"]
-    req_non_functional: ["NFR-1", "NFR-2"]
+    req_non_functional: ["NFR-2"]
     signature: "int toArabic(String roman)"
-    pre: "roman - корректная строка римского числа"
-    post: "Возвращает целое число от 1 до 3999."
+    pre: "roman != null && !roman.isEmpty() && roman.matches(\"^[IVXLCDM]+$\")"
+    post: "Результат - число от 1 до 3999"
     equivalence_classes:
-      - case: "Корректное большое число"
-        inputs: ["MCMXCIV"]
-        expected: "1994"
-      - case: "Пустая строка (нарушение pre)"
+      - case: "Валидная строка I"
+        inputs: ["I"]
+        expected: "1"
+      - case: "Валидная строка MMMCMXCIX"
+        inputs: ["MMMCMXCIX"]
+        expected: "3999"
+      - case: "Пустая строка"
         inputs: [""]
-        expected: "IllegalArgumentException"
+        expected: "IllegalArgumentException.class"
+      - case: "Невалидные символы"
+        inputs: ["ABC"]
+        expected: "IllegalArgumentException.class"
+      - case: "Null"
+        inputs: [null]
+        expected: "IllegalArgumentException.class"
